@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Character } from '../interfaces/character.interface';
+import { DbzService } from '../services/dbz.service';
 
 @Component({
   selector: 'app-dbz-main-page',
@@ -8,29 +9,19 @@ import { Character } from '../interfaces/character.interface';
 
 export class MainPageComponent  {
 
-  public characters: Character[] = [{
-    name: 'Krillin',
-    power: 1000
-  },{
-    name: 'Goku',
-    power:9500
-    },{
-    name:'Vegeta',
-    power: 7500
+  constructor( private dbzService: DbzService) {}
+
+
+  // ESTOS METODOS HACEN FALTA PORQUE ES PRIVADO DBZSERVICE
+  get characters(): Character[]{
+    return [...this.dbzService.characters];
   }
 
-  ];
-
-  onNewCharacter1(character: Character):void {
-    console.log("Main page");
-    console.log(character);
-    // this.characters.unshift(character); //agrega al inicio
-    this.characters.push(character); //agrega al final
+  onDeleteCharacter( id: string): void {
+    this.dbzService.deleteCharacterById( id );
   }
 
-  onDeleteCharacter(index: number):void {
-    // console.log(this.characters.splice);
-    this.characters.splice(index, 1);
+  onNewCharacter( character: Character): void {
+    this.dbzService.addCharacter(character);
   }
-
 }

@@ -12,19 +12,26 @@ export class ListComponent {
 
   @Input()
   public characterList: Character[] = [{
+    // id:'',
     name:'Trunk',
     power: 10
   }]
 
 
   @Output()
-  public onDelete: EventEmitter<number> = new EventEmitter();
+  // public onDelete: EventEmitter<number> = new EventEmitter();
+  public onDelete: EventEmitter<string> = new EventEmitter();
 
-  onDeleteCharacter(index: number):void {
-    console.log("Index: ", index);
-    this.onDelete.emit(index);
+  // onDeleteCharacter(index: number):void {
+  //   console.log("Index: ", index);
+  //   this.onDelete.emit(index);
+  // }
+  onDeleteCharacter(id?: string):void {
+    if (!id) return;
+
+    console.log("ID: ", id);
+    this.onDelete.emit(id);
   }
-
 
 }
 ""
